@@ -6,6 +6,14 @@ from sys import path
 from environ import Env
 
 
+########## PROJECT CONFIGURATION
+CASSETTO = {
+    'STORAGE_NAME_MAX_LENGTH': 255,
+    'FILENAME_MAX_LENGTH': 1023,
+}
+########## END PROJECT CONFIGURATION
+
+
 ########## PATH CONFIGURATION
 PACKAGE_PATH = dirname(dirname(abspath(__file__)))
 PACKAGE_NAME = basename(PACKAGE_PATH)
@@ -208,6 +216,8 @@ DJANGO_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'cassetto.apps.storage',
+    'cassetto.apps.sharing',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
