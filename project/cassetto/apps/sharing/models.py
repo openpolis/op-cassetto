@@ -4,16 +4,24 @@ from django.db import models
 
 class Sharing(models.Model):
 
+    POLICY_READ_ONLY = 0
+    POLICY_EDITABLE = 1
+
+    policy = models.PositiveSmallIntegerField(choices=(
+        (POLICY_READ_ONLY, 'read-only'),
+        (POLICY_EDITABLE, 'editable'),
+    ))
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     storage = models.ForeignKey('storage.Storage')
 
-    shared_at = models.DateTimeField(auto_now_add=True)
+    shared_at = models.DateTimeField(auto_now_add=True, editable=False)
 
 
 class Publication(models.Model):
 
-    path = models.CharField(max_length=settings.CASSETTO.get('FILENAME_MAX_LENGTH'))
+    path = models.TextField()
 
-    storage = models.ForeignKey('storage.Storage')
+    resource = models.ForeignKey('storage.Resource')
 
-    published_at = models.DateTimeField(auto_now_add=True)
+    published_at = models.DateTimeField(auto_now_add=True, editable=False)

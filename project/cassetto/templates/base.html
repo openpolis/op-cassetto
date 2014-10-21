@@ -1,11 +1,11 @@
-{% load staticfiles i18n %}<!DOCTYPE html>
+{% load staticfiles i18n humanize %}<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{% block page_title %}Cassetto{% endblock %}</title>
+    <title>{% block head_title %}Cassetto{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{% block page_description %}A storage service{% endblock %}">
-    <meta name="author" content="{% block page_author %}Daniele Faraglia{% endblock %}">
+    <meta name="description" content="{% block head_description %}Storage service for openpolis network{% endblock %}">
+    <meta name="author" content="{% block page_author %}joke2k{% endblock %}">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -14,51 +14,39 @@
     <![endif]-->
 
     {% block css %}
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
 
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/fontawesome/latest/css/font-awesome.css"/>
+
     <!-- This file store project specific CSS -->
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
     {% endblock css %}
 
     <link rel="icon" href="{% static 'images/favicon.ico' %}" />
+
+    {% block extra_head %}{% endblock %}
 </head>
 
-<body>
-
-<div class="header navbar navbar-default">
-    <div class="container">
-        <a class="navbar-brand" href="/">{{ project_title }}</a>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="#">About</a></li>
-
-            {% if request.user.is_authenticated %}
-            <li><a href="#">{% trans "My Profile" %}</a></li>
-            <li><a href="#">{% trans "Logout" %}</a></li>
-            {% else %}
-            <li><a href="#">{% trans "Sign Up" %}</a></li>
-            <li><a href="#">{% trans "Log In" %}</a></li>
-            {% endif %}
-        </ul>
-    </div>
-</div>
+<body>{% block body %}
 
 <div class="container">
-
-{% if messages %}
-{% for message in messages %}
-    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
-{% endfor %}
-{% endif %}
-
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+            <h1 class="text-center" id="logo">{{ site.name }}</h1>
+    </div>
+</div>
+{% block container %}
+<div class="row">
 {% block content %}
-<p>Use this document as a way to quick start any new project.</p>
 {% endblock content %}
-
+</div>
+{% endblock container %}
 </div> <!-- /container -->
 
 {% block modal %}{% endblock modal %}
@@ -73,10 +61,11 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
-<!-- Your stuff: Third-party javascript libraries go here -->
-
 <!-- place project specific Javascript in this file -->
 <script src="{% static 'js/project.js' %}"></script>
 {% endblock javascript %}
+{% endblock %}{# end block body #}
+{% block extra_body %}
+{% endblock %}
 </body>
 </html>
