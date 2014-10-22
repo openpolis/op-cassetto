@@ -47,6 +47,8 @@ DEBUG = env.bool('DEBUG', False)
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
 TEMPLATE_DEBUG = DEBUG
+
+QUERY_DEBUG = env.bool('QUERY_DEBUG', False)
 ########## END DEBUG CONFIGURATION
 
 
@@ -158,6 +160,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
+
+    'allauth.account.context_processors.account',
+    'allauth.socialaccount.context_processors.socialaccount',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
@@ -178,6 +183,7 @@ TEMPLATE_DIRS = (
 MIDDLEWARE_CLASSES = (
     # Default Django middleware.
     'django.middleware.common.CommonMiddleware',
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -204,7 +210,7 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
 
     # Useful template tags:
-    # 'django.contrib.humanize',
+    'django.contrib.humanize',
 
     # Admin panel and documentation:
     'django.contrib.admin',
@@ -212,6 +218,14 @@ DJANGO_APPS = (
 
     # Django helper
     'django_extensions',
+
+    # API REST
+    'rest_framework',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'attrezzi.accesso',
 )
 
 # Apps specific for this project go here.
@@ -227,7 +241,11 @@ INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS
 
 ########## AUTHENTICATION CONFIGURATION
 AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
     "django.contrib.auth.backends.ModelBackend",
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 ########## END AUTHENTICATION CONFIGURATION
 
@@ -283,27 +301,17 @@ LOGGING = {
     },
     'loggers': {
         '': {
-            'handlers': ['null', ],
-            'level': 'INFO',
-        },
-        'django': {
-            'handlers': ['null', ],
-            'level': 'INFO',
-            'propagate': True,
+            'handlers': ['file', ],
+            'level': 'DEBUG',
         },
         'django.db': {
-            'handlers': ['null', ],
-            'level': 'DEBUG',
-            'propagate': True,
+            'handlers': ['file', ],
+            'level': 'DEBUG' if QUERY_DEBUG else 'INFO',
+            'propagate': False,
         },
         'django.request': {
             'handlers': ['file', 'mail_admins'],
             'level': 'WARNING',
-            'propagate': True,
-        },
-        'django.security': {
-            'handlers': ['null', ],
-            'level': 'DEBUG',
             'propagate': True,
         },
         'cassetto': {
@@ -326,3 +334,25 @@ WSGI_APPLICATION = '%s.wsgi.application' % PACKAGE_NAME
 # See: https://docs.djangoproject.com/en/dev/releases/1.6/#new-test-runner
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 ########## END TESTING CONFIGURATION
+
+
+########## API REST CONFIGURATION
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
+########## END API REST CONFIGURATION
+
+
+########## SENDFILE CONFIGURATION
+# See: https://github.com/johnsensible/django-sendfile#readme
+SENDFILE_BACKEND = 'sendfile.backends.development'
+
+SENDFILE_ROOT = join(RESOURCES_PATH, 'storage')
+SENDFILE_URL = '/download'
+########## END SENDFILE CONFIGURATION

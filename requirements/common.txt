@@ -13,3 +13,15 @@ django-braces>=1.4
 
 # Models
 django-model-utils>=2.2
+
+# API Rest
+djangorestframework>=2.4
+Markdown>=2.5
+django-filter>=0.8
+
+# Authentication
+django-allauth>=0.18
+
+# Download with permission
+django-sendfile==0.3.6
+

@@ -28,8 +28,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # more details on how to customize your logging configuration.
 LOGGING['loggers'] = {
     '': {
-        'handlers': ['console'],
-        'level': 'DEBUG'
-    }
+        'handlers': ['console', ],
+        'level': 'DEBUG',
+    },
 }
 ########## END LOGGING CONFIGURATION

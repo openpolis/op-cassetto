@@ -1,0 +1,6 @@
+{% extends "rest_framework/base.html" %}
+
+{% block title %}{{ request.site.name }} Rest API{% endblock %}
+{% block branding %}<a class='brand' href='http://{{ request.site.domain }}'>{{ request.site.name }}</a>{% endblock %}
+{% block footer %}{% endblock %}
+

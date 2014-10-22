@@ -35,10 +35,26 @@ DATABASES = {
 LOGGING['loggers'] = {
     '': {
         'handlers': ['file', ],
-        'level': 'DEBUG' if DEBUG else 'INFO'
+        'level': 'INFO',
+    },
+    'django.request': {
+        'handlers': ['file', 'mail_admins'],
+        'level': 'ERROR',
+        'propagate': True,
+    },
+    'cassetto': {
+        'handlers': ['file', ],
+        'level': 'INFO',
+        'propagate': True,
     }
 }
 ########## END LOGGING CONFIGURATION
+
+
+########## SENDFILE CONFIGURATION
+# See: https://github.com/johnsensible/django-sendfile#readme
+SENDFILE_BACKEND = 'sendfile.backends.nginx'
+########## END SENDFILE CONFIGURATION
 
 
 ########## SECRET CONFIGURATION

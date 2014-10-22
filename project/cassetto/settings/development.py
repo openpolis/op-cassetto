@@ -61,13 +61,23 @@ INTERNAL_IPS = ('127.0.0.1',)
 # more details on how to customize your logging configuration.
 LOGGING['loggers'] = {
     '': {
-        'handlers': ['console', 'file'],
-        'level': 'WARNING',
+        'handlers': ['console', ],
+        'level': 'DEBUG',
     },
-    'django': {
-        'handlers': ['console', 'file'],
-        'level': 'INFO',
+    'django.db': {
+        'handlers': ['file', 'console'],
+        'level': 'DEBUG' if QUERY_DEBUG else 'INFO',
+        'propagate': False,
+    },
+    'django.request': {
+        'handlers': ['file', 'console'],
+        'level': 'ERROR',
         'propagate': True,
     },
+    'cassetto': {
+        'handlers': ['console', ],
+        'level': 'INFO',
+        'propagate': True,
+    }
 }
 ########## END LOGGING CONFIGURATION
