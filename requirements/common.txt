@@ -5,7 +5,11 @@
 Django>=1.7,<1.8
 django-extensions>=1.4
 
+# Openpolis toolkit
 git+git://github.com/openpolis/op-attrezzi.git@develop
+
+# django-debug-toolbar that works with Django 1.5+
+django-debug-toolbar
 
 # Configuration
 django-environ>=0.3
