@@ -39,7 +39,7 @@ class ResourceSerializer(serializers.ModelSerializer):
 
     storage_url = serializers.HyperlinkedRelatedField(view_name='storage-detail', source='storage')
     uploader = serializers.Field(source='uploader.username')
-    # file_url = HyperlinkedFileField(source='file')
+    file_url = HyperlinkedFileField(source='file')
     download_url = serializers.SerializerMethodField('get_resource_download_url')
 
     def get_resource_download_url(self, obj):
@@ -52,7 +52,7 @@ class ResourceSerializer(serializers.ModelSerializer):
             'path',
             'description',
             'download_url',
-            # 'file_url',
+            'file_url',
             'storage_url',
             'uploader',
             'created_at',
