@@ -51,6 +51,12 @@ LOGGING['loggers'] = {
 ########## END LOGGING CONFIGURATION
 
 
+########## SENDFILE CONFIGURATION
+# See: https://github.com/johnsensible/django-sendfile#readme
+SENDFILE_BACKEND = 'sendfile.backends.nginx'
+########## END SENDFILE CONFIGURATION
+
+
 ########## SECRET CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env('SECRET_KEY')

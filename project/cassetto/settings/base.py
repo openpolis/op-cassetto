@@ -347,3 +347,12 @@ REST_FRAMEWORK = {
     )
 }
 ########## END API REST CONFIGURATION
+
+
+########## SENDFILE CONFIGURATION
+# See: https://github.com/johnsensible/django-sendfile#readme
+SENDFILE_BACKEND = 'sendfile.backends.development'
+
+SENDFILE_ROOT = join(RESOURCES_PATH, 'storage')
+SENDFILE_URL = '/download'
+########## END SENDFILE CONFIGURATION

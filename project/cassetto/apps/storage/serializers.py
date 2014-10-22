@@ -37,10 +37,24 @@ class HyperlinkedFileField(serializers.FileField):
 
 class ResourceSerializer(serializers.ModelSerializer):
 
-    storage = serializers.HyperlinkedRelatedField(view_name='storage-detail')
-    owner = serializers.Field(source='owner.username')
-    file_url = HyperlinkedFileField(source='file')
+    storage_url = serializers.HyperlinkedRelatedField(view_name='storage-detail', source='storage')
+    uploader = serializers.Field(source='uploader.username')
+    # file_url = HyperlinkedFileField(source='file')
+    download_url = serializers.SerializerMethodField('get_resource_download_url')
+
+    def get_resource_download_url(self, obj):
+        return self.context.get('request').build_absolute_uri(obj.get_download_url())
 
     class Meta:
         model = Resource
-        fields = ('name', 'path', 'description', 'file_url', 'owner', 'storage', 'created_at', 'updated_at')
+        fields = (
+            'name',
+            'path',
+            'description',
+            'download_url',
+            # 'file_url',
+            'storage_url',
+            'uploader',
+            'created_at',
+            'updated_at'
+        )

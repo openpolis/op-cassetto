@@ -21,3 +21,7 @@ django-filter>=0.8
 
 # Authentication
 django-allauth>=0.18
+
+# Download with permission
+django-sendfile==0.3.6
+
