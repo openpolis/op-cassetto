@@ -356,3 +356,12 @@ SENDFILE_BACKEND = 'sendfile.backends.development'
 SENDFILE_ROOT = join(RESOURCES_PATH, 'storage')
 SENDFILE_URL = '/download'
 ########## END SENDFILE CONFIGURATION
+
+
+########## ATTREZZI CONFIGURATION
+ATTREZZI_ACCESSO_URL = env.str('ATTREZZI_ACCESSO_URL', 'http://example.com')
+ATTREZZI = {
+    'ACCESSO_ACCESS_TOKEN_URL': '%s/o/token/' % ATTREZZI_ACCESSO_URL,
+    'ACCESSO_AUTHORIZE_URL': '%s/o/authorize/' % ATTREZZI_ACCESSO_URL,
+    'ACCESSO_PROFILE_URL': '%s/api/v1/users/me' % ATTREZZI_ACCESSO_URL,
+}
