@@ -29,7 +29,7 @@ urls = (
     # url(r'^cassetto/', include('cassetto.foo.urls')),
 
     url(r'^api/v1/', include(router.urls)),
-    url(r'^%s/(?P<username>[\w.@+-]+)/(?P<storage>[-a-zA-Z0-9_]+)/(?P<path>.+)' % settings.SENDFILE_URL[1:],
+    url(r'^download/(?P<username>[\w.@+-]+)/(?P<storage>[-a-zA-Z0-9_]+)/(?P<path>.+)',
         storage_view.download_view, name='resource-download'),
     # url(r'^api/v1/storages$', storage_view.StorageList.as_view(actions={'get': 'list', 'post': 'create'}), name='storage-list'),
     # url(r'^api/v1/storages/(?P<username>[\w.@+-]+)$', storage_view.StorageList.as_view(actions={'get': 'list', 'post': 'create'}), name='storage-user-list'),

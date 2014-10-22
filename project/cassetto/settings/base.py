@@ -354,7 +354,7 @@ REST_FRAMEWORK = {
 SENDFILE_BACKEND = 'sendfile.backends.development'
 
 SENDFILE_ROOT = join(RESOURCES_PATH, 'storage')
-SENDFILE_URL = '/download'
+SENDFILE_URL = '/protected_download'
 ########## END SENDFILE CONFIGURATION
 
 
