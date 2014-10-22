@@ -2,17 +2,13 @@ from rest_framework import permissions
 from cassetto.apps.sharing.models import Sharing
 
 
-class IsOwner(permissions.IsAuthenticated):
+class IsOwner(permissions.BasePermission):
 
     @property
     def owner_field_name(self):
         raise NotImplementedError
 
     def has_object_permission(self, request, view, obj):
-
-        if not super(IsOwner, self).has_object_permission(request, view, obj):
-            return False
-
         return request.user == getattr(obj, self.owner_field_name)
 
 

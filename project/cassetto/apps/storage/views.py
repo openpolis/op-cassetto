@@ -19,6 +19,9 @@ def download_view(request, username, storage, path):
     :param resource:
     :return:
     """
+    if not request.user.is_authenticated():
+        return HttpResponseForbidden()
+
     if not path.startswith('/'):
         path = '/' + path
     try:
